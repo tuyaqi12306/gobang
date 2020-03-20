@@ -65,7 +65,6 @@ export default {
         winner: ""
       }, // 历史记录
       wins: [], // AI赢的统计数组
-      myWin: []
     };
   },
   mounted() {
@@ -125,7 +124,7 @@ export default {
       this.maxContinuousCount(x, y);
       this.saveValueToLocal();
     },
-    // 从某个点出发，从上往下，从左往右，从左上方往斜下方。从某个点儿往他的左下方。
+    // 从某个点出发，从上往下，从左往右，从左上方往斜下方。从右上方往左下方。
     maxContinuousCount(x, y) {
       // 横向统计
       let blackMax = 0;
@@ -335,49 +334,50 @@ export default {
     },
     showHistory() {
       this.chessBoard = this.history.checkerBoard;
-    },
-    // AI落子赢的算法 【人机大战未实现】
-    omputerWinSum() {
-      // 横向,需要连续棋子的数量
-      let count = 0;
-      for (let i = 0; i < this.size; i++) {
-        for (let j = 0; j < this.size - this.winCount; j++) {
-          for (let k = 0; k < this.winCount; k++) {
-            //此循环结束，就是横向的第一种赢法
-            this.wins[i][j + k][count] = true;
-          }
-          count++;
-        }
-      }
-      //纵线
-      for (let i = 0; i < this.size; i++) {
-        for (let j = 0; j < this.size - this.winCount; j++) {
-          for (let k = 0; k < this.winCount; k++) {
-            this.wins[j + k][i][count] = true;
-          }
-          count++;
-        }
-      }
-      //正斜线
-      for (let i = 0; i < this.size - this.winCount; i++) {
-        for (let j = 0; j < this.size - this.winCount; j++) {
-          for (let k = 0; k < this.winCount; k++) {
-            this.wins[i + k][j + k][count] = true;
-          }
-          count++;
-        }
-      }
-      //反斜线
-      for (let i = 0; i < this.size - this.winCount; i++) {
-        for (let j = this.size; j > this.winCount; j--) {
-          for (let k = 0; k < this.winCount; k++) {
-            this.wins[i + k][j - k][count] = true;
-          }
-          count++;
-        }
-      }
-      // console.log(count);
     }
+    // ,
+    // AI落子赢的算法 【人机大战未实现】
+    // omputerWinSum() {
+    //   // 横向,需要连续棋子的数量
+    //   let count = 0;
+    //   for (let i = 0; i < this.size; i++) {
+    //     for (let j = 0; j < this.size - this.winCount; j++) {
+    //       for (let k = 0; k < this.winCount; k++) {
+    //         //此循环结束，就是横向的第一种赢法
+    //         this.wins[i][j + k][count] = true;
+    //       }
+    //       count++;
+    //     }
+    //   }
+    //   //纵线
+    //   for (let i = 0; i < this.size; i++) {
+    //     for (let j = 0; j < this.size - this.winCount; j++) {
+    //       for (let k = 0; k < this.winCount; k++) {
+    //         this.wins[j + k][i][count] = true;
+    //       }
+    //       count++;
+    //     }
+    //   }
+    //   //正斜线
+    //   for (let i = 0; i < this.size - this.winCount; i++) {
+    //     for (let j = 0; j < this.size - this.winCount; j++) {
+    //       for (let k = 0; k < this.winCount; k++) {
+    //         this.wins[i + k][j + k][count] = true;
+    //       }
+    //       count++;
+    //     }
+    //   }
+    //   //反斜线
+    //   for (let i = 0; i < this.size - this.winCount; i++) {
+    //     for (let j = this.size; j > this.winCount; j--) {
+    //       for (let k = 0; k < this.winCount; k++) {
+    //         this.wins[i + k][j - k][count] = true;
+    //       }
+    //       count++;
+    //     }
+    //   }
+    //   // console.log(count);
+    // }
   },
   watch: {
     // history: this.saveValueToLocal
