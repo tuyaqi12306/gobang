@@ -70,9 +70,11 @@ export default {
   },
   mounted() {
     this.initBoard();
+
     this.timer = setInterval(() => {
       this.date = new Date().toLocaleTimeString();
     });
+
     this.getStorageValue();
   },
   beforeDestroy() {
@@ -332,52 +334,50 @@ export default {
       localStorage.setItem("boardHistory", history);
     },
     showHistory() {
-      debugger;
       this.chessBoard = this.history.checkerBoard;
+    },
+    // AI落子赢的算法 【人机大战未实现】
+    omputerWinSum() {
+      // 横向,需要连续棋子的数量
+      let count = 0;
+      for (let i = 0; i < this.size; i++) {
+        for (let j = 0; j < this.size - this.winCount; j++) {
+          for (let k = 0; k < this.winCount; k++) {
+            //此循环结束，就是横向的第一种赢法
+            this.wins[i][j + k][count] = true;
+          }
+          count++;
+        }
+      }
+      //纵线
+      for (let i = 0; i < this.size; i++) {
+        for (let j = 0; j < this.size - this.winCount; j++) {
+          for (let k = 0; k < this.winCount; k++) {
+            this.wins[j + k][i][count] = true;
+          }
+          count++;
+        }
+      }
+      //正斜线
+      for (let i = 0; i < this.size - this.winCount; i++) {
+        for (let j = 0; j < this.size - this.winCount; j++) {
+          for (let k = 0; k < this.winCount; k++) {
+            this.wins[i + k][j + k][count] = true;
+          }
+          count++;
+        }
+      }
+      //反斜线
+      for (let i = 0; i < this.size - this.winCount; i++) {
+        for (let j = this.size; j > this.winCount; j--) {
+          for (let k = 0; k < this.winCount; k++) {
+            this.wins[i + k][j - k][count] = true;
+          }
+          count++;
+        }
+      }
+      // console.log(count);
     }
-    // ,
-      // AI落子赢的算法
-      // omputerWinSum() {
-      //  // 横向,需要连续棋子的数量
-      //  let count = 0;
-      //  for (let i = 0; i < 15; i++) {
-      //    for(let j=0; j<11; j++){
-      //      for(let k=0; k<5; k++){
-      //        //此循环结束，就是横向的第一种赢法
-      //        this.wins[i][j+k][count] = true;
-      //      }
-      //      count++ ;
-      //    }
-      //  }
-      //  //纵线
-      //  for(let i=0; i<15; i++){
-      //    for(let j=0; j<11; j++){
-      //      for(let k=0; k<5; k++){
-      //        this.wins[j+k][i][count] = true;
-      //      }
-      //      count++ ;
-      //    }
-      //  }
-      //  //正斜线
-      //  for(let i=0; i<11; i++){
-      //    for(let j=0; j<11; j++){
-      //      for(let k=0; k<5; k++){
-      //        this.wins[i+k][j+k][count] = true;
-      //      }
-      //      count++ ;
-      //    }
-      //  }
-      //  //反斜线
-      //  for(let i=0; i<11; i++){
-      //    for(let j=14; j>3; j--){
-      //      for(let k=0; k<5; k++){
-      //        this.wins[i+k][j-k][count] = true;
-      //      }
-      //      count++ ;
-      //    }
-      //  }
-      //  // console.log(count) // 572
-    // }
   },
   watch: {
     // history: this.saveValueToLocal
