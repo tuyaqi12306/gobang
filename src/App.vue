@@ -64,7 +64,7 @@ export default {
         checkerBoard: [], // 上一场历史布局
         winner: ""
       }, // 历史记录
-      wins: [], // AI赢的统计数组
+      wins: [] // AI赢的统计数组
     };
   },
   mounted() {
@@ -124,7 +124,7 @@ export default {
       this.maxContinuousCount(x, y);
       this.saveValueToLocal();
     },
-    // 从某个点出发，从上往下，从左往右，从左上方往斜下方。从右上方往左下方。
+    // 从某个点出发，从左往右，从上往下，从左上方往斜下方，从右上方往左下方，数出有没有同种颜色连续排成5个的棋子。
     maxContinuousCount(x, y) {
       // 横向统计
       let blackMax = 0;
@@ -406,7 +406,7 @@ export default {
   white-space: nowrap; // 让表格不折行
 }
 table {
-  border-collapse: collapse;
+  border-collapse: collapse; // 去除表格间隙
 }
 .square {
   display: inline-block;
@@ -428,14 +428,9 @@ table {
       #4c4c4c 52%,
       transparent 52%
     );
-    // 从0-48%是透明的，从48%-52%颜色为黑，从50%-100%也是透明的
+  // 从0-48%是透明的，从48%-52%颜色为黑，从50%-100%也是透明的
+  // 画棋盘，给每个单元格添加背景
 }
-// .blackBgc {
-//   background-color: black;
-// }
-// .blueBgc {
-//   background-color: blue;
-// }
 .blackBgc::after {
   content: "";
   display: inline-block;
@@ -464,5 +459,5 @@ table {
   margin-top: 20px;
   text-align: left;
 }
-// 改进：给每个格子一个十字背景,再把表格的边框去掉
+// 改进：给每个格子一个十字背景，棋盘周围的线去掉
 </style>
